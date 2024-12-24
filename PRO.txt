@@ -9,3 +9,4 @@
 09 Alert Component
 10 Toggle Member (Switch to Register/Login Page Logic)
 11 Global Context Setup
+12 Display/Hide Alert (useReducer, AppContext)

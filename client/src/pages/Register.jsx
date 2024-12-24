@@ -1,7 +1,7 @@
 import Wrapper from '../assets/wrappers/RegisterPage';
 import { useState } from 'react';
 import { Alert, FormRow, Logo } from '../components';
-import useAppContext from '../context/AppContext/useAppContext';
+import { useAppContext } from '../context/appContext';
 
 const initialState = {
   name: '',
@@ -12,19 +12,31 @@ const initialState = {
 
 const Register = () => {
   const [values, setValues] = useState(initialState);
-  const { showAlert } = useAppContext();
+  const { showAlert, displayAlert, clearAlert } = useAppContext();
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
 
+  // handle input change
   const handleChange = (e) => {
-    console.log(e.target);
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+  // handle form submit
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
+
+    // check empty fields
+    const { name, email, password, isMember } = values;
+    if (!email || !password || (!isMember && !name)) {
+      displayAlert();
+      return;
+    }
+
+    // everything is OK
+    console.log(`🚀CHECK > values:`, values);
+    clearAlert();
   };
 
   return (
