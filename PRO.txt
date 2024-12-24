@@ -4,3 +4,4 @@
 04 Landing Page
 05 Logo Component
 06 Fix Routes & Components
+07 Register Page
