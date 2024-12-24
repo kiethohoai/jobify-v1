@@ -2,3 +2,4 @@
 02 Setup Routes & Pages
 03 Error Page
 04 Landing Page
+05 Logo Component
