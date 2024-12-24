@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useState } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 import reducer from './reducer';
 import { DISPLAY_ALERT, CLEAR_ALERT } from './actions';
 
