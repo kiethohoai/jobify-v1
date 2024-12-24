@@ -5,3 +5,4 @@
 05 Logo Component
 06 Fix Routes & Components
 07 Register Page
+08 FormRow (Reused Input Component) & LoginRegister Page V2
