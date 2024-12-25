@@ -18,3 +18,4 @@
 19 Delete .env
 20 Add & Update .env file
 21 authRoutes & authController
+22 JobRoutes & jobController
