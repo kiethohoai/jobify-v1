@@ -19,3 +19,4 @@
 20 Add & Update .env file
 21 authRoutes & authController
 22 JobRoutes & jobController
+23 Test API in PostMan

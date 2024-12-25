@@ -1,6 +1,9 @@
 import express from 'express';
 import 'dotenv/config';
 
+// Loggers
+import morgan from 'morgan';
+
 // Database & Authenticate User
 import connectDB from './db/connect.js';
 
@@ -17,6 +20,7 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
+app.use(morgan('tiny'));
 
 // Routes
 app.get('/', (req, res) => {
