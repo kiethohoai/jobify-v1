@@ -20,3 +20,4 @@
 21 authRoutes & authController
 22 JobRoutes & jobController
 23 Test API in PostMan
+24 User Model
