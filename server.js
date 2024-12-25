@@ -1,6 +1,9 @@
 import express from "express";
 import "dotenv/config";
 
+// Database
+import connectDB from "./db/connect.js";
+
 // Middleware
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
@@ -11,7 +14,6 @@ const app = express();
 
 // Routes
 app.get("/", (req, res) => {
-  throw new Error("Error");
   res.send("Welcome");
 });
 
@@ -19,7 +21,20 @@ app.get("/", (req, res) => {
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-// App running
-app.listen(port, () => {
-  console.log(`🚀App Running On Port: ${port}`);
-});
+const start = async () => {
+  try {
+    // Connect DB
+    await connectDB(process.env.MONGO_URL);
+    console.log(`🚀Database Connected Successfully`);
+
+    // App running
+    app.listen(port, () => {
+      console.log(`🚀App Running On Port: ${port}`);
+    });
+  } catch (error) {
+    console.log(`🚀Error:`, error);
+  }
+};
+
+// Init App Run
+start();
