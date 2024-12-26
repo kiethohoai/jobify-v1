@@ -28,3 +28,4 @@
 29 CustomAPIError (Handle Error)
 30 BadRequestError and NotFoundError (Handle Error)
 31 Refactor Errors
+32 Hanle Duplicate Email
