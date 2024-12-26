@@ -23,3 +23,4 @@
 24 User Model
 25 Validate Email
 26 Missing Field Error (Handle Error)
+27 Unique Field Error (Handle Error)
