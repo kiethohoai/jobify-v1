@@ -27,3 +27,4 @@
 28 Check For Empty Values in Controller (Handle Error)
 29 CustomAPIError (Handle Error)
 30 BadRequestError and NotFoundError (Handle Error)
+31 Refactor Errors
