@@ -29,3 +29,4 @@
 30 BadRequestError and NotFoundError (Handle Error)
 31 Refactor Errors
 32 Hanle Duplicate Email
+33 Hash Passwords
