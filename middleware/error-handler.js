@@ -1,11 +1,11 @@
 import { StatusCodes } from 'http-status-codes';
 
 const errorHandlerMiddleware = (err, req, res, next) => {
-  console.log(`🚀Error:`, err);
+  console.log(`🚀Error:`, err.message);
 
   const defaultError = {
     statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-    msg: 'Something went wrong, try again later',
+    msg: err.message || 'Something went wrong, try again later',
   };
 
   // Missing Field Error
