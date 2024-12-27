@@ -30,3 +30,4 @@
 31 Refactor Errors
 32 Hanle Duplicate Email
 33 Hash Passwords
+34 JWT
