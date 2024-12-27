@@ -4,7 +4,7 @@ const Dashboard = () => {
   const fetchData = async () => {
     try {
       // const res = await fetch('/');
-      const res = await fetch('http://localhost:5000/api/v1');
+      const res = await fetch('api/v1');
       const data = await res.json();
       console.log(`🚀CHECK > data:`, data);
     } catch (error) {

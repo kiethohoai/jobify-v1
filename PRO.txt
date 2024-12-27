@@ -32,3 +32,4 @@
 33 Hash Passwords
 34 JWT
 35 Cors
+36 Vite Config
