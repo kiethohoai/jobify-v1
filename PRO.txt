@@ -31,3 +31,4 @@
 32 Hanle Duplicate Email
 33 Hash Passwords
 34 JWT
+35 Cors

@@ -1,5 +1,6 @@
 import 'express-async-errors';
 import express from 'express';
+import cors from 'cors';
 import 'dotenv/config';
 
 // Loggers
@@ -20,12 +21,17 @@ import errorHandlerMiddleware from './middleware/error-handler.js';
 const port = process.env.PORT || 5000;
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(morgan('tiny'));
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Welcome');
+  res.json({ msg: 'Welcome' });
+});
+
+app.get('/api/v1', (req, res) => {
+  res.json({ msg: 'Welcome' });
 });
 
 app.use('/api/v1/auth', authRouter);
