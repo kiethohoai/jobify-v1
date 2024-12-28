@@ -1,6 +1,19 @@
 import { createContext, useContext, useReducer } from 'react';
 import reducer from './reducer';
-import { DISPLAY_ALERT, CLEAR_ALERT } from './actions';
+import axios from 'axios';
+
+import {
+  DISPLAY_ALERT,
+  CLEAR_ALERT,
+  REGISTER_USER_BEGIN,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_ERROR,
+} from './actions';
+
+// Get data from localStorage and set default state
+const user = JSON.parse(localStorage.getItem('user'));
+const token = localStorage.getItem('token');
+const location = localStorage.getItem('location');
 
 // initialStates
 const initialStates = {
@@ -8,6 +21,10 @@ const initialStates = {
   showAlert: false,
   alertText: '',
   alertType: '',
+  user: user ? user : null,
+  token: token ? token : null,
+  userLocation: location ? location : '',
+  jobLocation: location ? location : '',
 };
 
 // App Context
@@ -28,8 +45,48 @@ const AppProvider = ({ children }) => {
     }, 3000);
   };
 
+  const addUserToLocalStorage = (user, location, token) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', token);
+    localStorage.setItem('location', location);
+  };
+
+  /*  
+  const removeUserFromLocalStorage = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('location');
+  }; */
+
+  const registerUser = async (currentUser) => {
+    try {
+      dispatch({ type: REGISTER_USER_BEGIN });
+      const response = await axios.post('/api/v1/auth/register', currentUser);
+      const { user, token, location } = response.data;
+      dispatch({
+        type: REGISTER_USER_SUCCESS,
+        payload: { user, location, token },
+      });
+
+      // todo save data to localStorage
+      addUserToLocalStorage(user, location, token);
+
+      // Handle Error
+    } catch (error) {
+      dispatch({
+        type: REGISTER_USER_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+
+    // Close all alert
+    clearAlert();
+  };
+
   return (
-    <AppContext.Provider value={{ ...state, displayAlert, clearAlert }}>
+    <AppContext.Provider
+      value={{ ...state, displayAlert, clearAlert, registerUser }}
+    >
       {children}
     </AppContext.Provider>
   );
