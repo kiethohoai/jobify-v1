@@ -11,6 +11,9 @@ import {
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  SETUP_USER_BEGIN,
+  SETUP_USER_SUCCESS,
+  SETUP_USER_ERROR,
 } from './actions';
 
 // Get data from localStorage and set default state
@@ -111,9 +114,45 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  // Setup User
+  const setupUser = async ({ currentUser, endPoint, alertText }) => {
+    try {
+      dispatch({ type: SETUP_USER_BEGIN });
+      const response = await axios.post(
+        `/api/v1/auth/${endPoint}`,
+        currentUser,
+      );
+      const { user, token, location } = response.data;
+      dispatch({
+        type: SETUP_USER_SUCCESS,
+        payload: { user, location, token, alertText },
+      });
+
+      // save user data to localStorage
+      addUserToLocalStorage(user, location, token);
+
+      // Handle Error
+    } catch (error) {
+      dispatch({
+        type: SETUP_USER_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+
+    // Close all alert
+    clearAlert();
+  };
+
   return (
     <AppContext.Provider
-      value={{ ...state, displayAlert, clearAlert, registerUser, loginUser }}
+      value={{
+        ...state,
+        displayAlert,
+        clearAlert,
+        registerUser,
+        loginUser,
+        setupUser,
+      }}
     >
       {children}
     </AppContext.Provider>

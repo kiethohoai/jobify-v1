@@ -7,6 +7,9 @@ import {
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  SETUP_USER_BEGIN,
+  SETUP_USER_SUCCESS,
+  SETUP_USER_ERROR,
 } from './actions';
 
 const reducer = (state, action) => {
@@ -28,6 +31,7 @@ const reducer = (state, action) => {
     };
   }
 
+  // TODO REGISTER
   if (action.type === REGISTER_USER_BEGIN) {
     return {
       ...state,
@@ -50,7 +54,7 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === LOGIN_USER_ERROR) {
+  if (action.type === REGISTER_USER_ERROR) {
     return {
       ...state,
       isLoading: false,
@@ -60,6 +64,7 @@ const reducer = (state, action) => {
     };
   }
 
+  // TODO LOGIN
   if (action.type === LOGIN_USER_BEGIN) {
     return {
       ...state,
@@ -82,7 +87,40 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === REGISTER_USER_ERROR) {
+  if (action.type === LOGIN_USER_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg,
+    };
+  }
+
+  // TODO SETUP USER (BOTH FOR LOGIN/REGISTER)
+  if (action.type === SETUP_USER_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+
+  if (action.type === SETUP_USER_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'success',
+      alertText: action.payload.alertText,
+
+      user: action.payload.user,
+      token: action.payload.token,
+      userLocation: action.payload.location,
+      jobLocation: action.payload.location,
+    };
+  }
+
+  if (action.type === SETUP_USER_ERROR) {
     return {
       ...state,
       isLoading: false,
