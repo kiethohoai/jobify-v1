@@ -23,7 +23,7 @@ const Landing = () => {
             and efficiency.
           </p>
           <Link to="/register" className="btn btn-hero">
-            Register
+            Login / Register
           </Link>
         </div>
 
