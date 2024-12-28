@@ -8,6 +8,9 @@ import {
   REGISTER_USER_BEGIN,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_ERROR,
+  LOGIN_USER_BEGIN,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_ERROR,
 } from './actions';
 
 // Get data from localStorage and set default state
@@ -68,7 +71,7 @@ const AppProvider = ({ children }) => {
         payload: { user, location, token },
       });
 
-      // todo save data to localStorage
+      // save user data to localStorage
       addUserToLocalStorage(user, location, token);
 
       // Handle Error
@@ -83,9 +86,34 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const loginUser = async (currentUser) => {
+    try {
+      dispatch({ type: LOGIN_USER_BEGIN });
+      const response = await axios.post('/api/v1/auth/login', currentUser);
+      const { user, token, location } = response.data;
+      dispatch({
+        type: LOGIN_USER_SUCCESS,
+        payload: { user, location, token },
+      });
+
+      // save user data to localStorage
+      addUserToLocalStorage(user, location, token);
+
+      // Handle Error
+    } catch (error) {
+      dispatch({
+        type: LOGIN_USER_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+
+    // Close all alert
+    clearAlert();
+  };
+
   return (
     <AppContext.Provider
-      value={{ ...state, displayAlert, clearAlert, registerUser }}
+      value={{ ...state, displayAlert, clearAlert, registerUser, loginUser }}
     >
       {children}
     </AppContext.Provider>
