@@ -39,3 +39,4 @@
 40 Refactor Login & Register
 41 Nested Pages and Protected Route
 42 Shared Layout
+43 Complete Navbar (UI Func)

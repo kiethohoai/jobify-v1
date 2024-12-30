@@ -14,6 +14,8 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  TOGGLE_SIDEBAR,
+  LOGOUT_USER,
 } from './actions';
 
 // Get data from localStorage and set default state
@@ -31,6 +33,7 @@ const initialStates = {
   token: token ? token : null,
   userLocation: location ? location : '',
   jobLocation: location ? location : '',
+  showSidebar: false,
 };
 
 // App Context
@@ -57,12 +60,11 @@ const AppProvider = ({ children }) => {
     localStorage.setItem('location', location);
   };
 
-  /*  
   const removeUserFromLocalStorage = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('location');
-  }; */
+  };
 
   const registerUser = async (currentUser) => {
     try {
@@ -143,6 +145,15 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const toggleSidebar = () => {
+    dispatch({ type: TOGGLE_SIDEBAR });
+  };
+
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -152,6 +163,8 @@ const AppProvider = ({ children }) => {
         registerUser,
         loginUser,
         setupUser,
+        toggleSidebar,
+        logoutUser,
       }}
     >
       {children}
