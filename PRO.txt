@@ -41,3 +41,4 @@
 42 Shared Layout
 43 Complete Navbar (UI Func)
 44 Small Sidebar
+45 Big Sidebar
