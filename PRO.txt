@@ -40,3 +40,4 @@
 41 Nested Pages and Protected Route
 42 Shared Layout
 43 Complete Navbar (UI Func)
+44 Small Sidebar

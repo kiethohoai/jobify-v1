@@ -13,6 +13,7 @@ import {
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
   TOGGLE_SIDEBAR,
+  LOGOUT_USER,
 } from './actions';
 
 const reducer = (state, action) => {
@@ -142,7 +143,7 @@ const reducer = (state, action) => {
   }
 
   // LOGOUT USER
-  if (action.type === TOGGLE_SIDEBAR) {
+  if (action.type === LOGOUT_USER) {
     return {
       ...initialStates,
       user: null,
