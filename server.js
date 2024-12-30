@@ -15,6 +15,7 @@ import jobRouter from './routes/jobRoutes.js';
 // Middleware
 import notFoundMiddleware from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
+import authenticateUser from './middleware/auth.js';
 
 // App
 const port = process.env.PORT || 5000;
@@ -34,7 +35,7 @@ app.get('/api/v1', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/jobs', jobRouter);
+app.use('/api/v1/jobs', authenticateUser, jobRouter);
 
 // Handle
 app.use(notFoundMiddleware);
