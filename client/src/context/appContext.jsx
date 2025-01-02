@@ -16,6 +16,9 @@ import {
   SETUP_USER_ERROR,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
 } from './actions';
 
 // Get data from localStorage and set default state
@@ -46,9 +49,6 @@ const AppProvider = ({ children }) => {
   // Axios config
   const authFetch = axios.create({
     baseURL: 'http://localhost:5000/api/v1',
-    // headers: {
-    //   Authorization: `Bearer ${state.token}`,
-    // },
   });
 
   // Request interceptors
@@ -187,11 +187,23 @@ const AppProvider = ({ children }) => {
 
   const updateUser = async (currentUser) => {
     try {
+      dispatch({ type: UPDATE_USER_BEGIN });
+
       const { data } = await authFetch.patch('/auth/updateUser', currentUser);
-      console.log(`🚀CHECK > data:`, data);
+      const { user, token, location } = data;
+
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: { user, token, location },
+      });
     } catch (error) {
-      console.log(`🚀CHECK > error:`, error.response);
+      dispatch({
+        type: UPDATE_USER_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
     }
+
+    clearAlert();
   };
 
   return (
