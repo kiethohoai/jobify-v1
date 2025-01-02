@@ -43,6 +43,40 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialStates);
 
+  // Axios config
+  const authFetch = axios.create({
+    baseURL: 'http://localhost:5000/api/v1',
+    // headers: {
+    //   Authorization: `Bearer ${state.token}`,
+    // },
+  });
+
+  // Request interceptors
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers['Authorization'] = `Bearer ${state.token}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    },
+  );
+
+  // Response interceptors
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      console.log(error.response);
+      if (error.response.status === 401) {
+        console.log('AUTH ERROR');
+      }
+
+      return Promise.reject(error);
+    },
+  );
+
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
     clearAlert();
@@ -94,7 +128,7 @@ const AppProvider = ({ children }) => {
   const loginUser = async (currentUser) => {
     try {
       dispatch({ type: LOGIN_USER_BEGIN });
-      const response = await axios.post('/api/v1/auth/login', currentUser);
+      const response = await axios.post('/auth/login', currentUser);
       const { user, token, location } = response.data;
       dispatch({
         type: LOGIN_USER_SUCCESS,
@@ -120,10 +154,7 @@ const AppProvider = ({ children }) => {
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
     try {
       dispatch({ type: SETUP_USER_BEGIN });
-      const response = await axios.post(
-        `/api/v1/auth/${endPoint}`,
-        currentUser,
-      );
+      const response = await authFetch.post(`/auth/${endPoint}`, currentUser);
       const { user, token, location } = response.data;
       dispatch({
         type: SETUP_USER_SUCCESS,
@@ -155,7 +186,12 @@ const AppProvider = ({ children }) => {
   };
 
   const updateUser = async (currentUser) => {
-    console.log(`🚀CHECK > currentUser:`, currentUser);
+    try {
+      const { data } = await authFetch.patch('/auth/updateUser', currentUser);
+      console.log(`🚀CHECK > data:`, data);
+    } catch (error) {
+      console.log(`🚀CHECK > error:`, error.response);
+    }
   };
 
   return (
