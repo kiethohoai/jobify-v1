@@ -47,3 +47,4 @@
 48 Profile Page
 49 Axios Config
 50 Update User Complete
+51 Job Model
