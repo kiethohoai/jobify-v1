@@ -49,3 +49,4 @@
 50 Update User Complete
 51 Job Model
 52 Create Job
+53 Create Job (FE)
