@@ -48,3 +48,4 @@
 49 Axios Config
 50 Update User Complete
 51 Job Model
+52 Create Job
