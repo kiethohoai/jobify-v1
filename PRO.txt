@@ -52,3 +52,5 @@
 53 Create Job (FE)
 54 Get All Job API
 55 Get All Jobs (FE)
+56 Edit, Delete Job (Setup)
+57 Edit Job Server
