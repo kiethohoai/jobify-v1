@@ -55,3 +55,4 @@
 56 Edit, Delete Job (Setup)
 57 Edit Job Server
 58 Delete Job Server
+59 Delete Job FE
