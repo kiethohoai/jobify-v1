@@ -18,6 +18,7 @@ const AddJob = () => {
     handleChange,
     clearValues,
     createJob,
+    editJob,
   } = useAppContext();
 
   const handleSubmit = (e) => {
@@ -25,6 +26,11 @@ const AddJob = () => {
     e.preventDefault();
     if (!position || !company || !jobLocation) {
       displayAlert();
+      return;
+    }
+
+    if (isEditing) {
+      editJob();
       return;
     }
 
@@ -91,11 +97,7 @@ const AddJob = () => {
           />
 
           <div className="btn-container">
-            <button
-              type="submit"
-              className="btn btn-block submit-btn"
-              disabled={isLoading}
-            >
+            <button type="submit" className="btn btn-block submit-btn" disabled={isLoading}>
               {isLoading ? 'adding...' : 'submit'}
             </button>
 
