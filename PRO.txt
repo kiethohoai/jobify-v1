@@ -58,3 +58,4 @@
 59 Delete Job FE
 60 Edit Job FE
 61 Mock Data
+62 Stats Server
