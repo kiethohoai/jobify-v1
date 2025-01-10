@@ -11,6 +11,9 @@ import Navbar from './Navbar';
 import NavLinks from './NavLinks';
 import SearchContainer from './SearchContainer';
 import SmallSidebar from './SmallSidebar';
+import StatsContainer from './StatsContainer';
+import StatsItem from './StatItem';
+import ChartsContainer from './ChartsContainer';
 
 export {
   Logo,
@@ -26,4 +29,7 @@ export {
   Job,
   JobInfo,
   Loading,
+  StatsContainer,
+  StatsItem,
+  ChartsContainer,
 };
