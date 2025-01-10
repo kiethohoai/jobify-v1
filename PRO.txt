@@ -60,3 +60,4 @@
 61 Mock Data
 62 Stats Server
 63 Stats FE
+64 Monthly Applications Server
