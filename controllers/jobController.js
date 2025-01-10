@@ -20,8 +20,53 @@ const createJob = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ job });
 };
 
+// todo getAllJobs
 const getAllJobs = async (req, res) => {
-  const jobs = await Job.find({ createdBy: req.user.userId });
+  // prepare query data
+  const { search, status, jobType, sort } = req.query;
+
+  // conditions for queryObject
+  const queryObject = {
+    createdBy: req.user.userId,
+  };
+
+  // status
+  if (status !== 'all') {
+    queryObject.status = status;
+  }
+
+  // jobType
+  if (jobType !== 'all') {
+    queryObject.jobType = jobType;
+  }
+
+  // search
+  if (search) {
+    queryObject.position = { $regex: search, $options: 'i' };
+  }
+
+  // chain query
+  let result = Job.find(queryObject);
+
+  // sort query condition
+  if (sort === 'latest') {
+    result.sort('-createdAt');
+  }
+
+  if (sort === 'oldest') {
+    result.sort('createdAt');
+  }
+
+  if (sort === 'a-z') {
+    result.sort('position');
+  }
+
+  if (sort === 'z-a') {
+    result.sort('-position');
+  }
+
+  // final data
+  const jobs = await result;
 
   res.status(StatusCodes.OK).json({
     jobs,
