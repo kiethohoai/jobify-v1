@@ -65,3 +65,4 @@
 66 Filter Sort Server
 67 Filter Sort FE
 68 Pagination Server
+69 Pagination FE
