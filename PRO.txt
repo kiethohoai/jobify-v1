@@ -61,3 +61,4 @@
 62 Stats Server
 63 Stats FE
 64 Monthly Applications Server
+65 Monthly Applications FE
