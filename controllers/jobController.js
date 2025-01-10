@@ -31,12 +31,12 @@ const getAllJobs = async (req, res) => {
   };
 
   // status
-  if (status !== 'all') {
+  if (status && status !== 'all') {
     queryObject.status = status;
   }
 
   // jobType
-  if (jobType !== 'all') {
+  if (jobType && jobType !== 'all') {
     queryObject.jobType = jobType;
   }
 

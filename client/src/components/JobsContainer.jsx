@@ -12,11 +12,15 @@ const JobsContainer = () => {
     jobs,
     isLoading,
     totalJobs,
+    search,
+    searchType,
+    searchStatus,
+    sort,
   } = useAppContext();
 
   useEffect(() => {
     getJobs();
-  }, []);
+  }, [search, searchType, searchStatus, sort]);
 
   if (isLoading) {
     return <Loading center={true} />;
