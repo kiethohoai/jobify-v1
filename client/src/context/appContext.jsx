@@ -300,9 +300,10 @@ const AppProvider = ({ children }) => {
         type: GET_JOBS_SUCCESS,
         payload: { jobs, totalJobs, numOfPages },
       });
+
+      // eslint-disable-next-line
     } catch (error) {
-      console.log(`🚀error:`, error.response);
-      // logoutUser();
+      logoutUser();
     }
 
     clearAlert();
@@ -345,11 +346,10 @@ const AppProvider = ({ children }) => {
     try {
       await authFetch.delete(`/jobs/${jobId}`);
       getJobs();
-    } catch (error) {
-      console.log(`🚀error:`, error.response);
 
-      // disable for testing, work on production
-      // logoutUser();
+      // eslint-disable-next-line
+    } catch (error) {
+      logoutUser();
     }
   };
 
@@ -361,9 +361,10 @@ const AppProvider = ({ children }) => {
         type: SHOW_STATS_SUCCESS,
         payload: { stats: data.defaultStats, monthlyApplications: data.monthlyApplications },
       });
+
+      // eslint-disable-next-line
     } catch (error) {
-      console.log(`🚀CHECK > error:`, error.response);
-      // logoutUser();
+      logoutUser();
     }
     clearAlert();
   };
@@ -419,5 +420,5 @@ const useAppContext = () => {
   return context;
 };
 
-// Export
+// eslint-disable-next-line
 export { AppProvider, useAppContext, initialStates };

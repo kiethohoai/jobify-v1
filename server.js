@@ -1,7 +1,12 @@
 import 'express-async-errors';
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import 'dotenv/config';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Loggers
 import morgan from 'morgan';
@@ -23,21 +28,22 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
+
+// only when ready to deploy
+app.use(express.static(path.resolve(__dirname, './client/dist')));
+
 app.use(cors());
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
 }
 
 // Routes
-app.get('/', (req, res) => {
-  res.json({ msg: 'Welcome' });
-});
-app.get('/api/v1', (req, res) => {
-  res.json({ msg: 'Welcome' });
-});
-
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', authenticateUser, jobRouter);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
+});
 
 // Handle
 app.use(notFoundMiddleware);
