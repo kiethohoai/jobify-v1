@@ -2,6 +2,9 @@ import 'express-async-errors';
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import helmet from 'helmet';
+import xss from 'xss-clean';
+import mongoSanitize from 'express-mongo-sanitize';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import 'dotenv/config';
@@ -28,6 +31,9 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
+app.use(helmet());
+app.use(xss());
+app.use(mongoSanitize());
 
 // only when ready to deploy
 app.use(express.static(path.resolve(__dirname, './client/dist')));
